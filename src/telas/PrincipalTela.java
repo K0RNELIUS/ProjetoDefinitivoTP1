@@ -18,9 +18,14 @@ public class PrincipalTela extends javax.swing.JFrame {
      * Creates new form Principal
      */
     
+    // Atributos
+    static Users users;
+    static Palavra palavras;
+    
     public PrincipalTela() {
-        initComponents();   
-       
+        initComponents(); 
+        this.users = new Users();
+        this.palavras = new Palavra();
     }
 
     /**
@@ -34,9 +39,9 @@ public class PrincipalTela extends javax.swing.JFrame {
 
         lblGameIcon = new javax.swing.JLabel();
         lblGameTitle = new javax.swing.JLabel();
-        bttPlay = new javax.swing.JButton();
         bttSignUp = new javax.swing.JButton();
         bttSeeRank = new javax.swing.JButton();
+        bttLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OnHangLine");
@@ -49,18 +54,8 @@ public class PrincipalTela extends javax.swing.JFrame {
         lblGameTitle.setFont(new java.awt.Font("Segoe UI", 0, 72)); // NOI18N
         lblGameTitle.setText("OnHangLine");
 
-        bttPlay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/playImage32.png"))); // NOI18N
-        bttPlay.setText("Start");
-        bttPlay.setToolTipText("Jogar Forca");
-        bttPlay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        bttPlay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bttPlayActionPerformed(evt);
-            }
-        });
-
-        bttSignUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/userImage32.png"))); // NOI18N
-        bttSignUp.setText(" SignUp and SignIn");
+        bttSignUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/addUserImage32.png"))); // NOI18N
+        bttSignUp.setText("Sign Up");
         bttSignUp.setToolTipText("Realizar Cadastro");
         bttSignUp.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bttSignUp.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +74,16 @@ public class PrincipalTela extends javax.swing.JFrame {
             }
         });
 
+        bttLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/userImage32.png"))); // NOI18N
+        bttLogin.setText("Login ");
+        bttLogin.setToolTipText("Clique aqui para Logar e Jogar");
+        bttLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        bttLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bttLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -86,19 +91,16 @@ public class PrincipalTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(lblGameIcon)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(86, 86, 86)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(lblGameTitle)
-                        .addContainerGap(119, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
                         .addComponent(bttSignUp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bttPlay)
-                        .addGap(85, 85, 85)
-                        .addComponent(bttSeeRank)
-                        .addGap(53, 53, 53))))
+                        .addComponent(bttLogin)
+                        .addGap(45, 45, 45)
+                        .addComponent(bttSeeRank))
+                    .addComponent(lblGameTitle))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,8 +115,8 @@ public class PrincipalTela extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bttSignUp)
-                            .addComponent(bttPlay)
-                            .addComponent(bttSeeRank))))
+                            .addComponent(bttSeeRank)
+                            .addComponent(bttLogin))))
                 .addContainerGap(292, Short.MAX_VALUE))
         );
 
@@ -132,15 +134,15 @@ public class PrincipalTela extends javax.swing.JFrame {
         new RankingTela().setVisible(true);
     }//GEN-LAST:event_bttSeeRankActionPerformed
 
-    private void bttPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttPlayActionPerformed
+    private void bttLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttLoginActionPerformed
         // TODO add your handling code here:
-        new JogoTela().setVisible(true);
-    }//GEN-LAST:event_bttPlayActionPerformed
+        new JogoConfirmationTela().setVisible(true);
+    }//GEN-LAST:event_bttLoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -172,14 +174,11 @@ public class PrincipalTela extends javax.swing.JFrame {
             }
         });
         
-        Palavra palavras = new Palavra("./src/arquivos/Animais.txt", "./src/arquivos/DicasAnimais.txt", "./src/arquivos/DificuldadeAnimais.txt");
-        Users users = new Users();
-        
         
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bttPlay;
+    private javax.swing.JButton bttLogin;
     private javax.swing.JButton bttSeeRank;
     private javax.swing.JButton bttSignUp;
     private javax.swing.JLabel lblGameIcon;

@@ -3,9 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package game;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,58 +19,128 @@ import javax.swing.JOptionPane;
 public class Users {
     
     // Atributos
-    private Dictionary dicDeUsers; // lista com 2 colunas (nick do user e pont total do user).
-
-    // Construtor
+    // Listas que formam tabela que reunem infos associados ao user pelo indice
+    private ArrayList<String> listaDeUsernames;
+    private ArrayList<Integer> listaDePontosFacil;
+    private ArrayList<Integer> listaDePontosMedio;
+    private ArrayList<Integer> listaDePontosDificil;
+    private ArrayList<Integer> listaDePontosTotal;
+    private ArrayList<User> listaDeUsers;
+    
     public Users() {
-        this.dicDeUsers = new Hashtable();
+        this.listaDeUsernames = new ArrayList<String>();
+        this.listaDePontosFacil = new ArrayList<Integer>();
+        this.listaDePontosMedio = new ArrayList<Integer>();
+        this.listaDePontosDificil = new ArrayList<Integer>();
+        this.listaDePontosTotal = new ArrayList<Integer>();
+        this.listaDeUsers = new ArrayList<User>();
     }
 
-    // Getter
-    public Dictionary getDicDeUsers() {return this.dicDeUsers;}
-    public void setDicDeUsers(Dictionary d) {this.dicDeUsers = d;}
+    // Getters e Setters
+    public ArrayList<String> getListaDeUsernames() {
+        return this.listaDeUsernames;
+    }
 
-    // Metodos
-    public boolean existeUser(String username) {
-        if (getDicDeUsers().get(username) instanceof Integer) {
-            return true;
-        }
-        return false;
+    private void setListaDeUsernames(ArrayList<String> listaDeUsernames) {
+        this.listaDeUsernames = listaDeUsernames;
+    }
+
+    public ArrayList<Integer> getListaDePontosFacil() {
+        return this.listaDePontosFacil;
+    }
+
+    private void setListaDePontosFacil(ArrayList<Integer> listaDePontosFacil) {
+        this.listaDePontosFacil = listaDePontosFacil;
+    }
+
+    public ArrayList<Integer> getListaDePontosMedio() {
+        return this.listaDePontosMedio;
+    }
+
+    private void setListaDePontosMedio(ArrayList<Integer> listaDePontosMedio) {
+        this.listaDePontosMedio = listaDePontosMedio;
+    }
+
+    public ArrayList<Integer> getListaDePontosDificil() {
+        return this.listaDePontosDificil;
+    }
+
+    private void setListaDePontosDificil(ArrayList<Integer> listaDePontosDificil) {
+        this.listaDePontosDificil = listaDePontosDificil;
+    }
+
+    public ArrayList<Integer> getListaDePontosTotal() {
+        return this.listaDePontosTotal;
+    }
+
+    private void setListaDePontosTotal(ArrayList<Integer> listaDePontosTotal) {
+        this.listaDePontosTotal = listaDePontosTotal;
     }
     
-    public void cadastrarUser(User user) {
-        if (this.existeUser(user.getUsername())) {
+    public ArrayList<User> getListaDeUsers() {
+        return listaDeUsers;
+    }
+
+    private void setListaDeUsers(ArrayList<User> listaDeUsers) {
+        this.listaDeUsers = listaDeUsers;
+    }
+
+    // Metodos
+    public boolean existeUsername(String username) {
+        return getListaDeUsernames().contains(username);
+    }
+    
+    public boolean cadastrarUser(String username) {
+        if (this.existeUsername(username)) {
             JOptionPane.showMessageDialog(null, "Já existe um user com este nome. Tente outro.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            return false;
         } else {
-            getDicDeUsers().put(user.getUsername(), user.getPontuacaoTotal());
+            getListaDeUsernames().add(username);
+            getListaDePontosFacil().add(0);
+            getListaDePontosMedio().add(0);
+            getListaDePontosDificil().add(0);
+            getListaDePontosTotal().add(0);
+            JOptionPane.showMessageDialog(null, "Usuário cadastrada com sucesso.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            User userTemp = new User(username);
+            this.getListaDeUsers().add(userTemp);
+            return true;
         }
     }
 
     public void removerUser(String username) {
-        if (this.existeUser(username)) {
-            getDicDeUsers().remove(username);
-        } else {
-            JOptionPane.showMessageDialog(null, "User a ser removida não existe. Tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
-
-    public void alterarPontuacaoUser(User user) {
-        if (this.existeUser(user.getUsername())) {
-            this.removerUser(user.getUsername());
-            this.cadastrarUser(user);
+        if (this.existeUsername(username)) {
+            int indexUsername = getListaDeUsernames().indexOf(username);
+            getListaDeUsernames().remove(indexUsername);
+            getListaDePontosFacil().remove(indexUsername);
+            getListaDePontosMedio().remove(indexUsername);
+            getListaDePontosDificil().remove(indexUsername);
+            getListaDePontosTotal().remove(indexUsername);
+            JOptionPane.showMessageDialog(null, "User apagado com sucesso.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "User a ser alterado não existe. Tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     
-    public ArrayList pesquisaUser(String username) {
-        ArrayList retorno = new ArrayList();
-        if (this.existeUser(username)) {
-            retorno.add(true);
-            retorno.add(getDicDeUsers().get(username));           
-        } else {
-            retorno.add(false);
+    public void alterarUsername(String usernameNovo, String usernameAntigo) {
+        if (this.existeUsername(usernameAntigo)) {
+            int indexUsername = getListaDeUsernames().indexOf(usernameAntigo);
+            getListaDeUsernames().set(indexUsername, usernameNovo);
         }
-        return retorno;
-    } 
+    }
+    
+    public void acrescentaPontuacao(String username, String dif) {
+        if (this.existeUsername(username)) {
+            int indexUsername = getListaDeUsernames().indexOf(username);
+            if (dif.equals("Facil")) {
+                getListaDePontosFacil().set(indexUsername, getListaDePontosFacil().get(indexUsername) + 1);
+            } else if (dif.equals("Medio")) {
+                getListaDePontosMedio().set(indexUsername, getListaDePontosMedio().get(indexUsername) + 1);
+            } else if (dif.equals("Dificil")){
+                getListaDePontosDificil().set(indexUsername, getListaDePontosDificil().get(indexUsername) + 1);
+            }
+            getListaDePontosTotal().set(indexUsername, getListaDePontosTotal().get(indexUsername) + 1);         
+        } 
+    }
+
+    
 }

@@ -30,22 +30,18 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="lblGameIcon" min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                      <Component id="lblGameTitle" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="119" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="bttSignUp" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="bttPlay" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="bttLogin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="bttSeeRank" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="lblGameTitle" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="119" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -63,8 +59,8 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="bttSignUp" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="bttPlay" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="bttSeeRank" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="bttLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -91,29 +87,12 @@
         <Property name="text" type="java.lang.String" value="OnHangLine"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="bttPlay">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/playImage32.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Start"/>
-        <Property name="toolTipText" type="java.lang.String" value="Jogar Forca"/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-            <BevelBorder/>
-          </Border>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttPlayActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="bttSignUp">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/userImage32.png"/>
+          <Image iconType="3" name="/imagens/addUserImage32.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value=" SignUp and SignIn"/>
+        <Property name="text" type="java.lang.String" value="Sign Up"/>
         <Property name="toolTipText" type="java.lang.String" value="Realizar Cadastro"/>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
@@ -140,6 +119,23 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttSeeRankActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bttLogin">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagens/userImage32.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Login "/>
+        <Property name="toolTipText" type="java.lang.String" value="Clique aqui para Logar e Jogar"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
+            <BevelBorder/>
+          </Border>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttLoginActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

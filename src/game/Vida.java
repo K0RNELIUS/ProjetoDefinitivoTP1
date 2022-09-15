@@ -11,10 +11,12 @@ package game;
 public class Vida {
     // Atributos
     private int vida;
+    private Jogo jogo;
 
     // Construtor
-    public Vida() {
+    public Vida(Jogo jogo) {
         this.vida = 7;
+        this.jogo = jogo;
     }
 
     // Getters e Setters
@@ -84,11 +86,7 @@ public class Vida {
             }
             case 0 -> {
                 System.out.println("OnHangLine...");
-                System.out.println("You have died!");
-            }
-            default -> {
-                System.out.println("OnHangLine...");
-                System.out.println("You already lost");
+                System.out.println("You Lost!");
             }
         }
     }

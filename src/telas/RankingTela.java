@@ -4,17 +4,35 @@
  */
 package telas;
 
+import game.Palavra;
+import game.Users;
+import javax.swing.table.DefaultTableModel;
+import static telas.PrincipalTela.users;
+
 /**
  *
  * @author leobe
  */
 public class RankingTela extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Ranking
      */
+    
     public RankingTela() {
         initComponents();
+        this.carregarTabela();
+    }
+    
+    public void carregarTabela() {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Total Points", "Username"},0);
+        for (int i = 0; i < users.getListaDeUsernames().size(); i++) {
+            Object linha[] = new Object[]{users.getListaDePontosTotal().get(i), users.getListaDeUsernames().get(i)};
+            modelo.addRow(linha);
+        }
+        
+        // tabela recebe modelo
+        tblTabelaUsers.setModel(modelo);
     }
 
     /**
@@ -45,11 +63,11 @@ public class RankingTela extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Username", "Total Pontuation"
+                "Total Pontuation", "Username"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {

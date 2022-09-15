@@ -3,10 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package telas;
+import game.Palavra;
 import telas.PrincipalTela;
 import game.User;
+import game.Users;
 import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static telas.PrincipalTela.users;
 
 /**
  *
@@ -16,6 +20,7 @@ public class UsersTela extends javax.swing.JFrame {
     /**
      * Creates new form Users
      */
+    
     public UsersTela() {
         initComponents();
         
@@ -28,6 +33,23 @@ public class UsersTela extends javax.swing.JFrame {
         // Habilitar ou desabilitar txts
         txtUsername.setEnabled(true);
         
+        // Focus no txt
+        txtUsername.requestFocus();
+    }
+    
+    // carregar user da lista para a tabela
+    public void carregarUser(String username) {
+        DefaultTableModel modelo = new DefaultTableModel(new Object[] {"Username", "Easy Points", "Medium Points", "Hard Points", "Total Points"},0);
+        int tempInd = users.getListaDeUsernames().indexOf(username);
+        Object linha[] = new Object[]{users.getListaDeUsernames().get(tempInd), 
+            users.getListaDePontosFacil().get(tempInd), 
+            users.getListaDePontosMedio().get(tempInd), 
+            users.getListaDePontosDificil().get(tempInd), 
+            users.getListaDePontosTotal().get(tempInd)};
+        modelo.addRow(linha);
+            
+        // Adiciona na tabela
+        tblUserPesquisado.setModel(modelo);
     }
 
     /**
@@ -49,7 +71,6 @@ public class UsersTela extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUserPesquisado = new javax.swing.JTable();
         bttSair = new javax.swing.JButton();
-        bttAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Users");
@@ -60,7 +81,12 @@ public class UsersTela extends javax.swing.JFrame {
         lblSearchIdentifier.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSearchIdentifier.setText("Username:");
 
-        txtUsername.setToolTipText("Insira o username do user para pesquisa");
+        txtUsername.setToolTipText("");
+        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUsernameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlCadastroUserLayout = new javax.swing.GroupLayout(pnlCadastroUser);
         pnlCadastroUser.setLayout(pnlCadastroUserLayout);
@@ -71,7 +97,7 @@ public class UsersTela extends javax.swing.JFrame {
                 .addComponent(lblSearchIdentifier)
                 .addGap(18, 18, 18)
                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(438, Short.MAX_VALUE))
         );
         pnlCadastroUserLayout.setVerticalGroup(
             pnlCadastroUserLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,10 +141,7 @@ public class UsersTela extends javax.swing.JFrame {
 
         tblUserPesquisado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Username", "Easy Pontuation", "Medium Pontuation", "Hard Pontuation"
@@ -152,11 +175,6 @@ public class UsersTela extends javax.swing.JFrame {
             }
         });
 
-        bttAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/confirmarImage32.png"))); // NOI18N
-        bttAlterar.setText("Alterar");
-        bttAlterar.setToolTipText("Após pesquisar Username, clique aqui para alterar.");
-        bttAlterar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -169,16 +187,14 @@ public class UsersTela extends javax.swing.JFrame {
                         .addComponent(bttCadastrar)
                         .addGap(27, 27, 27)
                         .addComponent(bttRemover)
-                        .addGap(26, 26, 26)
-                        .addComponent(bttAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bttPesquisar))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(369, 369, 369)
+                .addGap(377, 377, 377)
                 .addComponent(bttSair)
-                .addContainerGap(428, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,13 +204,12 @@ public class UsersTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bttCadastrar)
                     .addComponent(bttRemover)
-                    .addComponent(bttPesquisar)
-                    .addComponent(bttAlterar))
+                    .addComponent(bttPesquisar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(bttSair)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
@@ -203,11 +218,19 @@ public class UsersTela extends javax.swing.JFrame {
 
     private void bttCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttCadastrarActionPerformed
        String tempUsername = txtUsername.getText();
+       
+       // Verificar se o campo esta vazio, precisa ser feito em todos os botoes desta tela
        if (tempUsername.equals("")) {
            JOptionPane.showMessageDialog(null, "Campo vazio, tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
        } else {
-           
+           users.cadastrarUser(tempUsername);
        }
+       
+       // Limpar Campos txt
+       txtUsername.setText("");
+       
+       // Focus no txt
+        txtUsername.requestFocus();
        
        
        
@@ -219,14 +242,46 @@ public class UsersTela extends javax.swing.JFrame {
     }//GEN-LAST:event_bttSairActionPerformed
 
     private void bttRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttRemoverActionPerformed
-        // TODO add your handling code here:
+        String tempUsername = txtUsername.getText();
+       
+       // Verificar se o campo esta vazio, precisa ser feito em todos os botoes desta tela
+       if (tempUsername.equals("")) {
+           JOptionPane.showMessageDialog(null, "Campo vazio, tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+       } else {
+           if (users.cadastrarUser(tempUsername)) {
+               JOptionPane.showMessageDialog(null, "User removido", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+           }
+       }
+       
+       // Limpar Campos txt
+       txtUsername.setText("");
+       
+       // Focus no txt
+        txtUsername.requestFocus();
              
     }//GEN-LAST:event_bttRemoverActionPerformed
 
     private void bttPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttPesquisarActionPerformed
-        // TODO add your handling code here:
+        String tempUsername = txtUsername.getText();
+       
+       // Verificar se o campo esta vazio, precisa ser feito em todos os botoes desta tela
+       if (tempUsername.equals("")) {
+           JOptionPane.showMessageDialog(null, "Campo vazio, tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+       } else {
+           carregarUser(tempUsername);
+       }
+       
+       // Limpar Campos txt
+       txtUsername.setText("");
+       
+       // Focus no txt
+        txtUsername.requestFocus();
       
     }//GEN-LAST:event_bttPesquisarActionPerformed
+
+    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,7 +320,6 @@ public class UsersTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bttAlterar;
     private javax.swing.JButton bttCadastrar;
     private javax.swing.JButton bttPesquisar;
     private javax.swing.JButton bttRemover;

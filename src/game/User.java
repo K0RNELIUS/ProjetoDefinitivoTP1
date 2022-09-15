@@ -4,6 +4,7 @@
  */
 package game;
 import java.util.ArrayList;
+import java.util.HashSet;
 /**
  *
  * @author leobe
@@ -16,15 +17,13 @@ public class User {
     private int pontuacaoDificil;
 
     private int pontuacaoTotal;
-    private ArrayList<Jogo> jogos;
+    private Jogo jogo;
 
     // Construtor
     public User(String u) {
-        this.username = u;
-        this.jogos = new ArrayList<>();
-        setPontuacaofacil(0);
-        setPontuacaomedia(0);
-        setPontuacaodificil(0);
+        setPontuacaoFacil(0);
+        setPontuacaoMedia(0);
+        setPontuacaoDificil(0);
         setPontuacaoTotal(0);
     }
 
@@ -35,24 +34,40 @@ public class User {
         this.username = u;
     }
     //Pontuacoes
-    public int getPontuacaofacil() {
+    public int getPontuacaoFacil() {
         return this.pontuacaoFacil;
     }
-    private void setPontuacaofacil(int f) {
+    private void setPontuacaoFacil(int f) {
         this.pontuacaoFacil = f;
     }
-    public int getPontuacaomedia() {
+    public int getPontuacaoMedia() {
         return this.pontuacaoMedia;
     }
-    private void setPontuacaomedia(int m) {
+    private void setPontuacaoMedia(int m) {
         this.pontuacaoMedia = m;
     }
-    public int getPontuacaodificil() {
+    public int getPontuacaoDificil() {
         return this.pontuacaoDificil;
     }
-    private void setPontuacaodificil(int d) {
+    private void setPontuacaoDificil(int d) {
         this.pontuacaoDificil = d;
     }
     public int getPontuacaoTotal() {return this.pontuacaoTotal;}
     private void setPontuacaoTotal(int t) {this.pontuacaoTotal = t;}
+    public void setJogo(Jogo jogo) {
+        this.jogo = jogo;
+    }
+    
+    // Metodos
+    public void acrescentePontuacao(String dif) {
+        if (dif.equals("Facil")) {
+            this.setPontuacaoFacil(this.getPontuacaoFacil() + 1);
+        } else if (this.equals("Medio")) {
+            this.setPontuacaoMedia(this.getPontuacaoMedia() + 1);
+                  
+        } else if (this.equals("Dificil")) {
+            this.setPontuacaoDificil(this.getPontuacaoDificil() + 1);               
+        }
+        this.setPontuacaoTotal(this.getPontuacaoTotal() + 1);
+    }
 }

@@ -5,25 +5,29 @@
 package game;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import telas.JogoTela;
+import telas.PrincipalTela;
 /**
  *
  * @author leobe
  */
 public class Jogo {
-    
-    // Atributos
-    private User user;
-    private String palavraReal;
-    private String dica;
-    private char[] progresso;
-    private ArrayList<Character> chutesLetras;
-    private ArrayList<String> chutesPalavras;
-    private Vida instVida;
 
+    // Atributos
+    private String palavraReal; // Palavra que se busca acertar no jogo
+    private String dica; // Dica da palavra que se busca acertar
+    private char[] progresso; // Segura progresso do jogador na palavra
+    private ArrayList<Character> chutesLetras; // armazena chutes de letras feitos
+    private ArrayList<String> chutesPalavras; // armazena chutes de palavras feitos
+    
+    // Objetos associados
+    private User user; // Jogo esta associado um pra um com user, por isso este atributo
+    private Vida instVida; // Associacao de jogo com vida, tb de um pra um.
 
     // Construtores
-    public Jogo(Palavra p, String dif, User u) {
-        ArrayList<String> retorno = p.selecionarPalavraAleatoria(dif);
+    // Inicializa Jogo
+    public Jogo(String dif, User u, Palavra palavras) {
+        ArrayList<String> retorno = palavras.selecionarPalavraAleatoria(dif);
         setPalavraReal(retorno.get(0));
         setDica(retorno.get(1));
         char[] tempProgresso = new char[getPalavraReal().length()];
@@ -34,7 +38,6 @@ public class Jogo {
         this.chutesLetras = new ArrayList<>();
         this.chutesPalavras = new ArrayList<>();
         this.user = u;
-        this.instVida = new Vida();
     }
 
     // Getters e Setters
@@ -54,6 +57,8 @@ public class Jogo {
     private void setInstVida(Vida v) {this.instVida = v;}
 
     // Metodos
+    
+    // Este metodo verifica se a letra ja foi chutada e atualiza progresse se houver a letra ou vida se n.
     public void chutarLetra(char letra) {
         if (getChutesLetras().contains(letra)) {
             JOptionPane.showMessageDialog(null, "O chute realizo já foi feito. Tente outro", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
@@ -75,6 +80,7 @@ public class Jogo {
                 }
                 if (acertou) {
                     JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                    new PrincipalTela().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Acertou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -85,6 +91,7 @@ public class Jogo {
         }
     }
 
+    // Mesma ideia do chutarLetra, mas com palavra
     public void chutarPalavra(String palavra) {
         if (getChutesPalavras().contains(palavra)) {
             JOptionPane.showMessageDialog(null, "O chute realizo já foi feito. Tente outro", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
@@ -100,10 +107,14 @@ public class Jogo {
         }
     }
 
+    // Metodo que tem como intuito apresentar a dica na interface
+    // Uma vez clicado este botao a dica deve se tornar indisponivel, pois so tem uma por jogo
+    // Falta atualizar este metodo para integra-lo
     public void dica() {
-        System.out.println(getDica());
+        JOptionPane.showMessageDialog(null, this.getDica(), "Mensagem", JOptionPane.INFORMATION_MESSAGE);
     }
-
+    
+    // Opcao de desistir do jogo. Faz com que ao clicar no botao o user perca a partida imediatamente
     public void desistir() {
         getInstVida().zeraVida();
     }

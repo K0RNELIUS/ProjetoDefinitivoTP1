@@ -14,16 +14,20 @@ import javax.swing.JOptionPane;
  */
 public class Palavra {
     // Atributos
+    // Listas formam tabela que reunem infos associados a palavra pelo indice
     private ArrayList<String> listaDePalavras;
     private ArrayList<String> listaDeDicas;
-    private ArrayList<String> listaDeDificuldades;  
+    private ArrayList<String> listaDeDificuldades;
 
     // Construtores
-    public Palavra(String path1, String path2, String path3) throws IOException {
-        List[] listasArray = BancoDeDados.geraListas(path1, path2, path3);
-        this.listaDePalavras = (ArrayList) listasArray[0];
-        this.listaDeDicas = (ArrayList) listasArray[1];
-        this.listaDeDificuldades = (ArrayList) listasArray[2];
+    public Palavra() {
+        this.listaDePalavras = new ArrayList<String>();
+        this.listaDeDicas = new ArrayList<String>();
+        this.listaDeDificuldades = new ArrayList<String>();
+        this.cadastrarPalavra("girafa", "Facil", "É um animal que tem um grande pescoço.");
+        this.cadastrarPalavra("computador", "Medio", "Dispositivo utilizados para programar");
+        this.cadastrarPalavra("garrafa", "Medio", "Usado para colocar líquido dentro.");
+        this.cadastrarPalavra("canguru", "Dificil", "É um marssupial.");
     }
 
     // Getters e Setters
@@ -35,6 +39,7 @@ public class Palavra {
     private void setListaDeDificuldades(ArrayList dif) {this.listaDeDificuldades = dif;}
     
     // Metodos
+    
     public boolean pesquisaPalavra(String palavra) {
         return this.getListaDePalavras().contains(palavra);
     }
@@ -50,13 +55,13 @@ public class Palavra {
     }
 
     public void removerPalavra(String palavra) {
-        if (!this.pesquisaPalavra(palavra)) {
-            JOptionPane.showMessageDialog(null, "A palavra não existe. Tente remover outra palavra.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        if (this.pesquisaPalavra(palavra)) {
             int indexPalavra = getListaDePalavras().indexOf(palavra);
             getListaDePalavras().remove(indexPalavra);
             getListaDeDificuldades().remove(indexPalavra);
             getListaDeDicas().remove(indexPalavra);
+        } else {
+            JOptionPane.showMessageDialog(null, "A palavra não existe. Tente remover outra palavra.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

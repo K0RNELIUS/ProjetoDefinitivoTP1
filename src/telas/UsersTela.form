@@ -41,8 +41,6 @@
                       <Component id="bttCadastrar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="bttRemover" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="bttAlterar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="bttPesquisar" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -51,9 +49,9 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="369" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="377" max="-2" attributes="0"/>
               <Component id="bttSair" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="428" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -66,13 +64,12 @@
                   <Component id="bttCadastrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bttRemover" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bttPesquisar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bttAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="288" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="bttSair" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace pref="39" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,7 +94,7 @@
                   <Component id="lblSearchIdentifier" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="txtUsername" min="-2" pref="313" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="438" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -125,8 +122,11 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtUsername">
           <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Insira o username do user para pesquisa"/>
+            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUsernameActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -188,7 +188,7 @@
         <Component class="javax.swing.JTable" name="tblUserPesquisado">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="4">
+              <Table columnCount="4" rowCount="0">
                 <Column editable="false" title="Username" type="java.lang.String"/>
                 <Column editable="false" title="Easy Pontuation" type="java.lang.Integer"/>
                 <Column editable="false" title="Medium Pontuation" type="java.lang.Integer"/>
@@ -245,20 +245,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bttSairActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bttAlterar">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/imagens/confirmarImage32.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Alterar"/>
-        <Property name="toolTipText" type="java.lang.String" value="Ap&#xf3;s pesquisar Username, clique aqui para alterar."/>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-            <BevelBorder/>
-          </Border>
-        </Property>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>
