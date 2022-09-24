@@ -37,23 +37,23 @@ public class User {
     public int getPontuacaoFacil() {
         return this.pontuacaoFacil;
     }
-    private void setPontuacaoFacil(int f) {
+    public void setPontuacaoFacil(int f) {
         this.pontuacaoFacil = f;
     }
     public int getPontuacaoMedia() {
         return this.pontuacaoMedia;
     }
-    private void setPontuacaoMedia(int m) {
+    public void setPontuacaoMedia(int m) {
         this.pontuacaoMedia = m;
     }
     public int getPontuacaoDificil() {
         return this.pontuacaoDificil;
     }
-    private void setPontuacaoDificil(int d) {
+    public void setPontuacaoDificil(int d) {
         this.pontuacaoDificil = d;
     }
     public int getPontuacaoTotal() {return this.pontuacaoTotal;}
-    private void setPontuacaoTotal(int t) {this.pontuacaoTotal = t;}
+    public void setPontuacaoTotal(int t) {this.pontuacaoTotal = t;}
     public void setJogo(Jogo jogo) {
         this.jogo = jogo;
     }

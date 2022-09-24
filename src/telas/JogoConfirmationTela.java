@@ -176,10 +176,16 @@ public class JogoConfirmationTela extends javax.swing.JFrame {
                 // Dificuldade 
                 if (tempDificuldade.equals("Facil") || tempDificuldade.equals("Medio") || tempDificuldade.equals("Dificil")) {
                     Jogo jogo = new Jogo(tempDificuldade, users.getListaDeUsers().get(indUser), palavras);
-                    new JogoTela(jogo).setVisible(true);
+                    JogoTela tempTela = new JogoTela(jogo);
+                    jogo.setTela(tempTela);
+                    tempTela.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "As dificuldades possíveis são Facil, Medio ou Dificil. Tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "O username não existe. Cadastre primeiro", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(false);
+                new UsersTela().setVisible(true);
             }
         }
         
