@@ -224,6 +224,8 @@ public class UsersTela extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null, "Campo vazio, tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
        } else {
            users.cadastrarUser(tempUsername);
+           this.setVisible(false);
+           new JogoConfirmationTela().setVisible(true);
        }
        
        // Limpar Campos txt

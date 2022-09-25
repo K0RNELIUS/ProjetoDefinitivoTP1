@@ -8,6 +8,7 @@ import game.Jogo;
 import game.Palavra;
 import game.Users;
 import javax.swing.JOptionPane;
+import static telas.PrincipalTela.users;
 
 /**
  *
@@ -19,73 +20,32 @@ public class JogoTela extends javax.swing.JFrame {
      * Creates new form JogoTela
      */
     private Jogo jogo;
-    
-    public JogoTela(Jogo jogo) {
-        initComponents(); 
-        this.jogo = jogo;
-    }
-    
+
     public JogoTela() {
         initComponents();
     }
     
-    public void alteraDica() {
-        lblDica.setText(jogo.getDica());
+    public void setJogo(Jogo jogo) {
+        this.jogo = jogo;
     }
     
-    public void alteraProgresso() {
-        String tempProgresso = String.valueOf(jogo.getProgresso());
-        lblProgresso.setText(tempProgresso);
+    // Metodos
+    public void alteraLblDica(String dica) {
+        lblDica.setText(dica);
     }
     
-    public void atualizaPersonagem() {
-        switch (jogo.getInstVida().getVida()) {
-            case 7 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan1-removebg-preview.png")));
-                break;
-            }
-            case 6 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan2-removebg-preview.png")));
-                break;
-            }
-            case 5 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan3-removebg-preview.png")));
-                break;
-            }
-            case 4 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan4-removebg-preview.png")));
-                break;
-            }
-            case 3 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan5-removebg-preview.png")));
-                break;
-            }
-            case 2 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan6-removebg-preview.png")));
-                break;
-            }
-            case 1 -> {
-                lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/HangMan7-removebg-preview.png")));
-                break;
-            }
-            case 0 -> {
-                JOptionPane.showMessageDialog(null, "Game Over!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                this.setVisible(false);
-                new PrincipalTela().setVisible(true);
-                break;
-            }
-        }
+    public void alteraLblProgresso(String progresso) {
+        lblProgresso.setText(progresso);
     }
     
-    public void perdeVida() {
-        jogo.getInstVida().setVida(jogo.getInstVida().getVida() - 1);
-        this.atualizaPersonagem();
+    public void alteraLblPersonagem(String path) {
+        lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource(path)));
+    }
+    
+    public void atualizaPont(String username, String dificuldade) {
+        users.acrescentaPontuacao(username, dificuldade);
     }
 
-    public void zeraVida() {
-        jogo.getInstVida().setVida(0);
-        this.atualizaPersonagem();
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -194,7 +154,6 @@ public class JogoTela extends javax.swing.JFrame {
 
         lblProgresso.setFont(new java.awt.Font("Segoe UI", 0, 84)); // NOI18N
         lblProgresso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblProgresso.setText("*************");
         lblProgresso.setToolTipText("");
 
         lblDica.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -261,10 +220,10 @@ public class JogoTela extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblTitle)
                             .addComponent(bttDica))
-                        .addGap(18, 18, 18)
-                        .addComponent(lblProgresso)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblDica, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44)
+                        .addComponent(lblDica, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(lblProgresso, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlChutes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -281,9 +240,16 @@ public class JogoTela extends javax.swing.JFrame {
     private void bttChuteLetraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttChuteLetraActionPerformed
         // TODO add your handling code here:
         String tempLetraString = txtLetraEntrada.getText();
-        char tempLetraChar = tempLetraString.charAt(0);
-        this.jogo.chutarLetra(tempLetraChar);
-        
+        if (tempLetraString.length() > 1) {
+            JOptionPane.showMessageDialog(null, "Aceitamos somente uma letra neste campo.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            if (tempLetraString.length() == 0) {
+                JOptionPane.showMessageDialog(null, "Por favor não deixe o campo vazio.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.jogo.chutarLetra(tempLetraString.charAt(0));
+            }
+        }
+
         // Limpar Campos txt
        txtLetraEntrada.setText("");
         
@@ -292,7 +258,11 @@ public class JogoTela extends javax.swing.JFrame {
     private void bttChutePalavraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttChutePalavraActionPerformed
         // TODO add your handling code here:
         String tempPalavra = txtPalavraEntrada.getText();
-        this.jogo.chutarPalavra(tempPalavra);
+        if (tempPalavra.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Por favor não deixe o campo vazio.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            this.jogo.chutarPalavra(tempPalavra);
+        }
         
         // Limpar Campos txt
        txtPalavraEntrada.setText("");
@@ -301,7 +271,6 @@ public class JogoTela extends javax.swing.JFrame {
     private void bttDicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttDicaActionPerformed
         // TODO add your handling code here:
         this.jogo.dica();
-        
     }//GEN-LAST:event_bttDicaActionPerformed
 
     private void bttDesistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bttDesistirActionPerformed

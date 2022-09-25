@@ -175,10 +175,11 @@ public class JogoConfirmationTela extends javax.swing.JFrame {
                 int indUser = users.getListaDeUsernames().indexOf(tempUsername);
                 // Dificuldade 
                 if (tempDificuldade.equals("Facil") || tempDificuldade.equals("Medio") || tempDificuldade.equals("Dificil")) {
-                    Jogo jogo = new Jogo(tempDificuldade, users.getListaDeUsers().get(indUser), palavras);
-                    JogoTela tempTela = new JogoTela(jogo);
-                    jogo.setTela(tempTela);
-                    tempTela.setVisible(true);
+                    JogoTela tela = new JogoTela();
+                    Jogo jogo = new Jogo(tempDificuldade, users.getListaDeUsers().get(indUser), palavras, tela);
+                    tela.setJogo(jogo);
+                    this.setVisible(false);
+                    tela.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "As dificuldades possíveis são Facil, Medio ou Dificil. Tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                 }

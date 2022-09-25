@@ -5,9 +5,10 @@
 package game;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import telas.JogoConfirmationTela;
 import telas.JogoTela;
 import telas.PrincipalTela;
-import telas.RankingTela;
+
 /**
  *
  * @author leobe
@@ -20,16 +21,17 @@ public class Jogo {
     private char[] progresso; // Segura progresso do jogador na palavra
     private ArrayList<Character> chutesLetras; // armazena chutes de letras feitos
     private ArrayList<String> chutesPalavras; // armazena chutes de palavras feitos
-    public JogoTela tela;
+    private String dificuldade;
     
     // Objetos associados
     private User user; // Jogo esta associado um pra um com user, por isso este atributo
     private Vida instVida; // Associacao de jogo com vida, tb de um pra um.
+    private JogoTela tela;
 
     // Construtores
     // Inicializa Jogo
     
-     public Jogo(String dif, User u, Palavra palavras) {
+     public Jogo(String dif, User u, Palavra palavras, JogoTela tela) {
         ArrayList<String> retorno = palavras.selecionarPalavraAleatoria(dif);
         setPalavraReal(retorno.get(0));
         setDica(retorno.get(1));
@@ -40,7 +42,12 @@ public class Jogo {
         setProgresso(tempProgresso);
         this.chutesLetras = new ArrayList<>();
         this.chutesPalavras = new ArrayList<>();
+        this.dificuldade = dif;
+        
         this.user = u;
+        this.tela = tela;
+        this.instVida = new Vida(this.tela);
+       
     }
 
     // Getters e Setters
@@ -58,7 +65,6 @@ public class Jogo {
     private void setChutesPalavras(ArrayList<String> cp) {this.chutesPalavras = cp;}
     public Vida getInstVida() {return this.instVida;}
     private void setInstVida(Vida v) {this.instVida = v;}
-    public void setTela(JogoTela t) {this.tela = t;}
 
     // Metodos
     
@@ -83,16 +89,18 @@ public class Jogo {
                     }
                 }
                 if (acertou) {
+                    this.tela.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                    user.setPontuacaoTotal(user.getPontuacaoTotal() + 1);
-                    new RankingTela().setVisible(true);
+                    this.tela.atualizaPont(this.user.getUsername(), this.dificuldade);
+                    new JogoConfirmationTela().setVisible(true);
                 } else {
-                    this.tela.alteraProgresso();
                     JOptionPane.showMessageDialog(null, "Acertou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                    this.tela.alteraLblProgresso(String.valueOf(this.getProgresso()));
                 }
             } else {
+                this.getInstVida().perdeVida();
                 JOptionPane.showMessageDialog(null, "Errou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                this.tela.perdeVida();
+                
             }
         }
     }
@@ -104,13 +112,14 @@ public class Jogo {
         } else {
             getChutesPalavras().add(palavra);
             if (palavra.equals(this.getPalavraReal())) {
+                this.tela.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                user.setPontuacaoTotal(user.getPontuacaoTotal() + 1);
-                new RankingTela().setVisible(true);
+                this.tela.atualizaPont(this.user.getUsername(), this.dificuldade);
+                new JogoConfirmationTela().setVisible(true);
             } else {
                 this.chutesPalavras.add(palavra);
-                this.tela.perdeVida();
-               JOptionPane.showMessageDialog(null, "Errou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                this.getInstVida().perdeVida();
+                JOptionPane.showMessageDialog(null, "Errou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
@@ -119,11 +128,11 @@ public class Jogo {
     // Uma vez clicado este botao a dica deve se tornar indisponivel, pois so tem uma por jogo
     // Falta atualizar este metodo para integra-lo
     public void dica() {
-        this.tela.alteraDica();
+        this.tela.alteraLblDica(this.getDica());
     }
     
     // Opcao de desistir do jogo. Faz com que ao clicar no botao o user perca a partida imediatamente
     public void desistir() {
-        this.tela.zeraVida();
+        this.getInstVida().zeraVida();
     }
 }

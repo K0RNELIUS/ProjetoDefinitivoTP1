@@ -6,8 +6,6 @@ package telas;
 
 import game.Palavra;
 import game.Users;
-import static java.awt.GridBagConstraints.BOTH;
-import java.io.IOException;
 
 /**
  *
