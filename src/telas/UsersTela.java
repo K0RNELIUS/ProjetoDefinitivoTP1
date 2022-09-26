@@ -250,9 +250,7 @@ public class UsersTela extends javax.swing.JFrame {
        if (tempUsername.equals("")) {
            JOptionPane.showMessageDialog(null, "Campo vazio, tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
        } else {
-           if (users.cadastrarUser(tempUsername)) {
-               JOptionPane.showMessageDialog(null, "User removido", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-           }
+           users.removerUser(tempUsername);
        }
        
        // Limpar Campos txt
@@ -270,7 +268,12 @@ public class UsersTela extends javax.swing.JFrame {
        if (tempUsername.equals("")) {
            JOptionPane.showMessageDialog(null, "Campo vazio, tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
        } else {
-           carregarUser(tempUsername);
+           if (users.existeUsername(tempUsername)) {
+               carregarUser(tempUsername);
+           } else {
+               JOptionPane.showMessageDialog(null, "Este username não existe.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+           }
+           
        }
        
        // Limpar Campos txt

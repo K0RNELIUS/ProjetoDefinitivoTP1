@@ -25,9 +25,13 @@ public class Palavra {
         this.listaDeDicas = new ArrayList<String>();
         this.listaDeDificuldades = new ArrayList<String>();
         this.cadastrarPalavra("girafa", "Facil", "É um animal que tem um grande pescoço.");
-        this.cadastrarPalavra("computador", "Medio", "Dispositivo utilizados para programar");
+        this.cadastrarPalavra("computador", "Medio", "Dispositivo utilizado para programar.");
         this.cadastrarPalavra("garrafa", "Medio", "Usado para colocar líquido dentro.");
         this.cadastrarPalavra("canguru", "Dificil", "É um marssupial.");
+        this.cadastrarPalavra("secretaria", "Dificil", "Lugar de uma escola.");
+        this.cadastrarPalavra("higiene", "Dificil", "Faz parte do bem-estar pessoal.");
+        this.cadastrarPalavra("cobertor", "Medio", "Comumente encontrado em quartos.");
+        this.cadastrarPalavra("geladeira", "Facil", "Ajuda a conservar alimentos.");
     }
 
     // Getters e Setters

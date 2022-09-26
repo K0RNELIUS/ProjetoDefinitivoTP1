@@ -107,7 +107,7 @@ public class Users {
         }
     }
 
-    public void removerUser(String username) {
+    public boolean removerUser(String username) {
         if (this.existeUsername(username)) {
             int indexUsername = getListaDeUsernames().indexOf(username);
             getListaDeUsernames().remove(indexUsername);
@@ -116,8 +116,10 @@ public class Users {
             getListaDePontosDificil().remove(indexUsername);
             getListaDePontosTotal().remove(indexUsername);
             JOptionPane.showMessageDialog(null, "User apagado com sucesso.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            return true;
         } else {
             JOptionPane.showMessageDialog(null, "User a ser alterado não existe. Tente novamente.", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+            return false;
         }
     }
     
