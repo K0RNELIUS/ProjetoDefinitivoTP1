@@ -5,6 +5,7 @@
 package game;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import telas.FinalTela;
 import telas.JogoConfirmationTela;
 import telas.JogoTela;
 import telas.PrincipalTela;
@@ -92,15 +93,15 @@ public class Jogo {
                     this.tela.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                     this.tela.atualizaPont(this.user.getUsername(), this.dificuldade);
-                    new JogoConfirmationTela().setVisible(true);
+                    this.tela.setVisible(false);
+                    new FinalTela().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Acertou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                     this.tela.alteraLblProgresso(String.valueOf(this.getProgresso()));
                 }
             } else {
-                this.getInstVida().perdeVida();
                 JOptionPane.showMessageDialog(null, "Errou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                
+                this.getInstVida().perdeVida();
             }
         }
     }
@@ -115,11 +116,12 @@ public class Jogo {
                 this.tela.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
                 this.tela.atualizaPont(this.user.getUsername(), this.dificuldade);
-                new JogoConfirmationTela().setVisible(true);
+                this.tela.setVisible(false);
+                new FinalTela().setVisible(true);
             } else {
                 this.chutesPalavras.add(palavra);
-                this.getInstVida().perdeVida();
                 JOptionPane.showMessageDialog(null, "Errou!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+                this.getInstVida().perdeVida();
             }
         }
     }

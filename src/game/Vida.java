@@ -5,6 +5,7 @@
 package game;
 
 import javax.swing.JOptionPane;
+import telas.FinalTela;
 import telas.JogoConfirmationTela;
 import telas.JogoTela;
 
@@ -64,8 +65,8 @@ public class Vida {
                 break;
             }
             case 0 -> {
-                JOptionPane.showMessageDialog(null, "Game Over!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                new JogoConfirmationTela().setVisible(true);
+                this.tela.setVisible(false);
+                new FinalTela("/imagens/HangMan8-removebg-preview.png").setVisible(true);
                 break;
             }
         }
