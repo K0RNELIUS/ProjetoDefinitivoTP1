@@ -23,16 +23,17 @@ public class Jogo {
     private ArrayList<Character> chutesLetras; // armazena chutes de letras feitos
     private ArrayList<String> chutesPalavras; // armazena chutes de palavras feitos
     private String dificuldade;
+    private String username;
     
     // Objetos associados
-    private User user; // Jogo esta associado um pra um com user, por isso este atributo
+    private Users users; // Jogo esta associado um pra um com user, por isso este atributo
     private Vida instVida; // Associacao de jogo com vida, tb de um pra um.
     private JogoTela tela;
 
     // Construtores
     // Inicializa Jogo
     
-     public Jogo(String dif, User u, Palavra palavras, JogoTela tela) {
+     public Jogo(String dif, String username, Users u, Palavra palavras, JogoTela tela) {
         ArrayList<String> retorno = palavras.selecionarPalavraAleatoria(dif);
         setPalavraReal(retorno.get(0));
         setDica(retorno.get(1));
@@ -44,16 +45,17 @@ public class Jogo {
         this.chutesLetras = new ArrayList<>();
         this.chutesPalavras = new ArrayList<>();
         this.dificuldade = dif;
+        this.username = username;
         
-        this.user = u;
+        this.users = u;
         this.tela = tela;
         this.instVida = new Vida(this.tela);
        
     }
 
     // Getters e Setters
-    public User getUser() {return this.user;}
-    public void setUser(User user) {this.user = user;}
+    public Users getUsers() {return this.users;}
+    public void setUsers(Users users) {this.users = users;}
     public  String getPalavraReal() {return this.palavraReal;}
     private void setPalavraReal(String r) {this.palavraReal = r;}
     public String getDica() {return this.dica;}
@@ -66,6 +68,8 @@ public class Jogo {
     private void setChutesPalavras(ArrayList<String> cp) {this.chutesPalavras = cp;}
     public Vida getInstVida() {return this.instVida;}
     private void setInstVida(Vida v) {this.instVida = v;}
+    public String getUsername() {return username;}
+    private void setUsername(String username) {this.username = username;}
 
     // Metodos
     
@@ -92,7 +96,7 @@ public class Jogo {
                 if (acertou) {
                     this.tela.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                    this.tela.atualizaPont(this.user.getUsername(), this.dificuldade);
+                    this.users.acrescentaPontuacao(this.username, this.dificuldade);
                     this.tela.setVisible(false);
                     new FinalTela().setVisible(true);
                 } else {
@@ -115,7 +119,7 @@ public class Jogo {
             if (palavra.equals(this.getPalavraReal())) {
                 this.tela.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Venceu!", "Mensagem", JOptionPane.INFORMATION_MESSAGE);
-                this.tela.atualizaPont(this.user.getUsername(), this.dificuldade);
+                this.users.acrescentaPontuacao(this.username, this.dificuldade);
                 this.tela.setVisible(false);
                 new FinalTela().setVisible(true);
             } else {

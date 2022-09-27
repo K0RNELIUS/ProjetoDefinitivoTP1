@@ -176,7 +176,7 @@ public class JogoConfirmationTela extends javax.swing.JFrame {
                 // Dificuldade 
                 if (tempDificuldade.equals("Facil") || tempDificuldade.equals("Medio") || tempDificuldade.equals("Dificil")) {
                     JogoTela tela = new JogoTela();
-                    Jogo jogo = new Jogo(tempDificuldade, users.getListaDeUsers().get(indUser), palavras, tela);
+                    Jogo jogo = new Jogo(tempDificuldade, tempUsername, users, palavras, tela);
                     tela.setJogo(jogo);
                     this.setVisible(false);
                     tela.setVisible(true);

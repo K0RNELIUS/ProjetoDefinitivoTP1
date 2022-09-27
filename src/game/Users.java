@@ -132,16 +132,16 @@ public class Users {
     
     public void acrescentaPontuacao(String username, String dif) {
         if (this.existeUsername(username)) {
-            int indexUsername = getListaDeUsernames().indexOf(username);
+            int index = this.getListaDeUsernames().indexOf(username);
             if (dif.equals("Facil")) {
-                getListaDePontosFacil().set(indexUsername, getListaDePontosFacil().get(indexUsername) + 1);
+                this.getListaDePontosFacil().set(index, this.getListaDePontosFacil().get(index) + 1);
             } else if (dif.equals("Medio")) {
-                getListaDePontosMedio().set(indexUsername, getListaDePontosMedio().get(indexUsername) + 1);
-            } else if (dif.equals("Dificil")){
-                getListaDePontosDificil().set(indexUsername, getListaDePontosDificil().get(indexUsername) + 1);
-            }
-            getListaDePontosTotal().set(indexUsername, getListaDePontosTotal().get(indexUsername) + 1);         
-        } 
+                this.getListaDePontosMedio().set(index, this.getListaDePontosMedio().get(index) + 1);
+            } else if (dif.equals("Dificil")) {
+                this.getListaDePontosDificil().set(index, this.getListaDePontosDificil().get(index) + 1);        
+            } 
+            this.getListaDePontosTotal().set(index, this.getListaDePontosTotal().get(index) + 1);
+        }
     }
 
     

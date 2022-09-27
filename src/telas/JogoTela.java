@@ -41,10 +41,6 @@ public class JogoTela extends javax.swing.JFrame {
     public void alteraLblPersonagem(String path) {
         lblPersonagem.setIcon(new javax.swing.ImageIcon(getClass().getResource(path)));
     }
-    
-    public void atualizaPont(String username, String dificuldade) {
-        users.acrescentaPontuacao(username, dificuldade);
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
